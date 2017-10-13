@@ -37,13 +37,15 @@
 					<!-- login form -->
 					<div class="login-form loginw3-agile"> 
 						<div class="agile-row">
-							<h1>Registrar Administrador</h1> 
+							<h1>Dar de Alta Producto</h1> 
 							<div class="login-agileits-top"> 	
-								<form action="registrar-admin.php" method="post"> 
-									<p>Usuario </p>
-									<input type="text" name="usuario" maxlength="20" class="name" required>
-									<p>Contraseña</p>
-									<input type="password" name="contrasena" maxlength="8" class="password" required>
+								<form action="alta.php" method="post"> 
+									<p>Fecha de Entrega: </p>
+									<input type="text" name="fecha_entrega" required>
+									<p>Nombre: </p>
+									<input type="text" name="nombre" required>
+									<p>Descripcion: </p>
+									<input type="text" name="descripcion" required>
 									<label class="anim">
 										<!--
 										<input type="checkbox" class="checkbox">
@@ -51,7 +53,7 @@
 										-->  
 									</label>  
 									
-									<input type="submit" name="Submit" value="Registrar"> 
+									<input type="submit" name="Submit" value="Dar de Alta"> 
 								</form> 	
 							</div> 
 							<!--

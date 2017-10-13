@@ -1,27 +1,10 @@
 <?php
-	session_start();
-
-	if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-	} else {
-   		echo "Necesitas acceder para registrar un administrador.<br>";
-   		echo "<br><a href='login.html'>Login</a>";
-		exit;
-	}
-
-	$now = time();
-
-	if($now > $_SESSION['expire']) {
-		session_destroy();
-		echo "Su sesion a terminado,
-		<a href='login.html'>Necesita Hacer Login</a>";
-		exit;
-	}
+session_start();
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login Administrador</title>
+<title>Enviar Tarea</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -37,22 +20,20 @@
 					<!-- login form -->
 					<div class="login-form loginw3-agile"> 
 						<div class="agile-row">
-							<h1>Registrar Administrador</h1> 
-							<div class="login-agileits-top"> 	
-								<form action="registrar-admin.php" method="post"> 
-									<p>Usuario </p>
-									<input type="text" name="usuario" maxlength="20" class="name" required>
-									<p>Contraseña</p>
-									<input type="password" name="contrasena" maxlength="8" class="password" required>
-									<label class="anim">
-										<!--
-										<input type="checkbox" class="checkbox">
-										<span> Remember me ?</span>
-										-->  
-									</label>  
-									
-									<input type="submit" name="Submit" value="Registrar"> 
-								</form> 	
+							<h1>Enviar Tarea</h1> 
+							<div class="login-agileits-top">
+							<?php
+							$id_producto = $_POST['id_producto'];
+							echo $id_producto;
+							 ?>
+							<form action="carga.php" method="post"> 	
+								<p>Numero de Control</p>
+								<input type="text" name="nc" maxlength="20" class="name" required>
+								<input type="submit" name="seleccionar" value="Seleccionar Archivo">
+								<br>
+								<br>
+								<input type="submit" name="Submit" value="Enviar">
+							</form> 
 							</div> 
 							<!--
 							<div class="login-agileits-bottom wthree"> 

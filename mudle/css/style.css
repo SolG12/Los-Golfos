@@ -340,7 +340,7 @@ input.checkbox:checked:after {
 /*-- responsive-design --*/
 @media(max-width:1440px){
 .item .block {
-    width: 35%; 
+    width: 50%; 
 }
 }
 @media(max-width:1366px){
@@ -440,6 +440,10 @@ input.checkbox:checked:after {
 .footeragileits p {
     margin: 1em;
     font-size: 0.8em;
+}
+.table01 {
+	table-layout: auto;
+	border-spacing: 5;
 }
 }
 /*-- //responsive-design --*/
