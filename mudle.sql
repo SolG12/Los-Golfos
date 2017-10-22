@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2017 a las 17:04:56
+-- Tiempo de generación: 21-10-2017 a las 20:31:54
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -49,6 +49,7 @@ INSERT INTO `administrador` (`id_admin`, `usuario`, `contrasena`) VALUES
 
 CREATE TABLE `carga` (
   `id_carga` int(11) NOT NULL,
+  `nc` varchar(10) NOT NULL,
   `id_producto` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `ruta` varchar(150) NOT NULL
@@ -111,7 +112,7 @@ ALTER TABLE `administrador`
 -- AUTO_INCREMENT de la tabla `carga`
 --
 ALTER TABLE `carga`
-  MODIFY `id_carga` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_carga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
