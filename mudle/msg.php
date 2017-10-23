@@ -20,22 +20,10 @@ session_start();
 					<!-- login form -->
 					<div class="login-form loginw3-agile"> 
 						<div class="agile-row">
-							<h1>Enviar Tarea</h1> 
-							<div class="login-agileits-top">
 							<?php
-							$id_producto = $_POST['id_producto'];
-							 ?>
-							<form action="cargar.php" method="post" enctype="multipart/form-data"> 	
-								<input type="hidden" name="id_producto" value=<?php echo $id_producto?>>
-								<p>Numero de Control</p>
-								<input type="text" name="nc" maxlength="20" class="name" required>
-								<p>Archivo</p>
-								<input type="file" name="archivo" value="Seleccionar Archivo" required>
-								<br>
-								<br>
-								<input type="submit" name="Submit" value="Enviar">
-							</form> 
-							</div> 
+							$msg = $_POST['msg'];
+							echo $msg;
+							?>
 							<!--
 							<div class="login-agileits-bottom wthree"> 
 								<h6><a href="#">Forgot password?</a></h6>
