@@ -1,4 +1,23 @@
 <?php
+	session_start();
+
+	if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+	} else {
+   		echo "Necesitas acceder para registrar un administrador.<br>";
+   		echo "<br><a href='login.html'>Login</a>";
+		exit;
+	}
+
+	$now = time();
+
+	if($now > $_SESSION['expire']) {
+		session_destroy();
+		echo "Su sesion a terminado,
+		<a href='login.html'>Necesita Hacer Login</a>";
+		exit;
+	}
+?>
+<?php
 
  $host_db = "localhost";
  $user_db = "root";

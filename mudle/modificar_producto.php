@@ -43,15 +43,37 @@
 					<!-- login form -->
 					<div class="login-form loginw3-agile"> 
 						<div class="agile-row">
-							<h1>Dar de Alta Producto</h1> 
-							<div class="login-agileits-top"> 	
-								<form action="alta.php" method="post"> 
+							<h1>Modificar Alta Producto</h1> 
+							<div class="login-agileits-top">
+<?php
+	$host_db = "localhost";
+	$user_db = "root";
+	$pass_db = "";
+	$db_name = "mudle";
+	$tbl_name = "producto";
+
+	$conexion = new mysqli($host_db, $user_db, $pass_db, $db_name);
+
+	if ($conexion->connect_error) {
+	 die("La conexion falló: " . $conexion->connect_error);
+	}
+
+	$id_producto = $_GET['id_producto'];
+	 
+	$sql = "SELECT * FROM $tbl_name where id_producto=$id_producto";
+
+	$result = $conexion->query($sql);
+	$row = $result->fetch_array(MYSQLI_ASSOC);
+	mysqli_close($conexion); 
+?>
+								<form action="modificar.php" method="post"> 
 									<p>Fecha de Entrega: </p>
-									<input type="text" name="fecha_entrega" required>
+									<input type="text" name="fecha_entrega" value="<?php echo $row['fecha_entrega'] ?>" required>
 									<p>Nombre: </p>
-									<input type="text" name="nombre" required>
+									<input type="text" name="nombre" value="<?php echo $row['nombre'] ?>" required>
 									<p>Descripcion: </p>
-									<input type="text" name="descripcion" required>
+									<input type="text" name="descripcion" value="<?php echo $row['descripcion'] ?>" required>
+									<input type="hidden" name="id_producto" value="<?php echo $id_producto ?>">
 									<label class="anim">
 										<!--
 										<input type="checkbox" class="checkbox">

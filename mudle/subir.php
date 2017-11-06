@@ -11,7 +11,13 @@ session_start();
 <link href="//fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Arsenal:400,400i,700,700i" rel="stylesheet">
 </head>
-<body> 
+<body>
+	<ul>
+  		<li><a href="productos.php">Productos</a></li>
+  		<li><a href="alta_producto.php">Dar de Alta Producto</a></li>
+ 		<li><a href="login.php">Login</a></li>
+ 		<li><a href="logout.php">Logout</a></li>
+	</ul>
 	<div class="main-agileinfo slider ">
 		<div class="items-group">
 			<div class="item agileits-w3layouts">
@@ -23,7 +29,7 @@ session_start();
 							<h1>Enviar Tarea</h1> 
 							<div class="login-agileits-top">
 							<?php
-							$id_producto = $_POST['id_producto'];
+							$id_producto = $_GET['id_producto'];
 							 ?>
 							<form action="cargar.php" method="post" enctype="multipart/form-data"> 	
 								<input type="hidden" name="id_producto" value=<?php echo $id_producto?>>

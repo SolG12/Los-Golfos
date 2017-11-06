@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Productos</title>
+<title>Login Administrador</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -14,7 +15,7 @@
   		<li><a href="alta_producto.php">Dar de Alta Producto</a></li>
  		<li><a href="login.php">Login</a></li>
  		<li><a href="logout.php">Logout</a></li>
-	</ul>
+	</ul> 
 	<div class="main-agileinfo slider ">
 		<div class="items-group">
 			<div class="item agileits-w3layouts">
@@ -23,49 +24,22 @@
 					<!-- login form -->
 					<div class="login-form loginw3-agile"> 
 						<div class="agile-row">
-							<h1>Productos</h1> 
-							<div class="login-agileits-top">
-								<table class="table_productos">
-									<tr>
-										<th>Nombre</th>
-										<th>Descripción</th>
-										<th>Fecha</th>
-										<th></th>
-									</tr>
-								
-<?php
-session_start();
-?>
-
-<?php
-
-$host_db = "localhost";
-$user_db = "root";
-$pass_db = "";
-$db_name = "mudle";
-$tbl_name = "producto";
-
-$conexion = new mysqli($host_db, $user_db, $pass_db, $db_name);
-
-if ($conexion->connect_error) {
- die("La conexion falló: " . $conexion->connect_error);
-}
- 
-$sql = "SELECT * FROM $tbl_name";
-
-$result = $conexion->query($sql);
-
-
-if ($result->num_rows > 0) {     
- }
- while($row = $result->fetch_array(MYSQLI_ASSOC)){
- echo "<tr><td>".$row['nombre']."</td><td>".$row['descripcion']."</td><td>".$row['fecha_entrega']."</td><td><a type=button class='button' href='subir.php?id_producto=".$row['id_producto']."'>Enviar</a><a type=button class='button' href='ver_producto.php?id_producto=".$row['id_producto']."'>Ver</a><a type=button class='button' href='modificar_producto.php?id_producto=".$row['id_producto']."'>Modificar</a></td></tr>\n";
-   echo "<input type='hidden' name='id_producto' value='".$row['id_producto']."'>";
- }
- echo "</table>";
-
- mysqli_close($conexion); 
- ?>
+							<h1>Iniciar Sesion</h1> 
+							<div class="login-agileits-top"> 	
+								<form action="checklogin.php" method="post"> 
+									<p>Usuario </p>
+									<input name="usuario" type="text" id="usuario" class="name" required>
+									<p>Contraseña</p>
+									<input name="contrasena" type="password" id="contrasena" class="password" required>
+									<label class="anim">
+										<!--
+										<input type="checkbox" class="checkbox">
+										<span> Remember me ?</span>
+										-->  
+									</label>  
+									
+									<input type="submit" name="Submit" value="Login"> 
+								</form> 	
 							</div> 
 							<!--
 							<div class="login-agileits-bottom wthree"> 
