@@ -24,7 +24,7 @@ $descripcion = $_POST['descripcion'];
 
 if ($conexion->query($query) === TRUE) {
  
- echo "<br />" . "<h2>" . "Producto agregado exitosamente!" . "</h2> " . "<a href='productos.php'> Continuar</a>";
+ echo "<h2>" . "Producto agregado exitosamente!" . "</h2> " . "<a href='productos.php'> Continuar</a>";
  }
  else {
  echo "Error al agregar producto." . $query . "<br>" . $conexion->error; 

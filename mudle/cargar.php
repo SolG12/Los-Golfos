@@ -20,9 +20,10 @@ session_start();
 			if ($conexion->connect_error) {
  				die("La conexion falló: " . $conexion->connect_error);
 			}
-			$query = "INSERT INTO $tbl_name values(null, '$nc', '$id_producto', '$fecha_actual', '$ruta')";
+			$query = "INSERT INTO $tbl_name values (null, '$nc', '$id_producto', '$fecha_actual', '$ruta', 0)";
 			if ($conexion->query($query) === TRUE){
-				echo "El archivo se ha cargado correctamente!";
+				echo "El archivo se ha cargado correctamente!<br>";
+				echo "<a href='productos.php'>Regresar</a>";
 			}else{
 				echo "Error al agregar producto." . $query . "<br>" . $conexion->error; 
 			}

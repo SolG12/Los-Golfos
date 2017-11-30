@@ -21,12 +21,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login Administrador</title>
+<title>Mudle</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="//fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Arsenal:400,400i,700,700i" rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+  } );
+  </script>
+
 </head>
 <body>
 	<ul>
@@ -68,7 +79,7 @@
 ?>
 								<form action="modificar.php" method="post"> 
 									<p>Fecha de Entrega: </p>
-									<input type="text" name="fecha_entrega" value="<?php echo $row['fecha_entrega'] ?>" required>
+									<input type="text" name="fecha_entrega" value="<?php echo $row['fecha_entrega'] ?>" id="datepicker" required>
 									<p>Nombre: </p>
 									<input type="text" name="nombre" value="<?php echo $row['nombre'] ?>" required>
 									<p>Descripcion: </p>
@@ -81,7 +92,7 @@
 										-->  
 									</label>  
 									
-									<input type="submit" name="Submit" value="Dar de Alta"> 
+									<input type="submit" name="Submit" value="Modificar"> 
 								</form> 	
 							</div> 
 							<!--

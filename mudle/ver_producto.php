@@ -1,3 +1,23 @@
+<?php
+	session_start();
+
+	if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+	} else {
+   		echo "Necesitas acceder para registrar un administrador.<br>";
+   		echo "<br><a href='login.php'>Login</a>";
+		exit;
+	}
+
+	$now = time();
+
+	if($now > $_SESSION['expire']) {
+		session_destroy();
+		echo "Su sesion a terminado,
+		<a href='login.php'>Necesita Hacer Login</a>";
+		exit;
+	}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,19 +43,17 @@
 					<!-- login form -->
 					<div class="login-form loginw3-agile"> 
 						<div class="agile-row">
-							<h1>Productos</h1> 
+							<h1>Ver Producto</h1> 
 							<div class="login-agileits-top">
 								<table class="table">
 									<tr>
 										<th>NC</th>
 										<th>Fecha de Subida</th>
+										<th>Entrega</th>
+										<th>Trabajo</th>
 										<th>Calificacion</th>
 										<th>Descarga</th>
 									</tr>
-								
-<?php
-session_start();
-?>
 
 <?php
 function compararFechas($primera, $segunda)
@@ -81,17 +99,38 @@ if ($conexion->connect_error) {
  die("La conexion falló: " . $conexion->connect_error);
 }
  
-$sql = "SELECT producto.id_producto, nc, fecha, ruta, fecha_entrega FROM carga INNER JOIN producto on carga.id_producto=producto.id_producto WHERE producto.id_producto = $_GET[id_producto]";
+$sql = "SELECT producto.id_producto, nc, fecha, ruta, fecha_entrega, id_carga, calificacion_trabajo FROM carga INNER JOIN producto on carga.id_producto=producto.id_producto WHERE producto.id_producto = $_GET[id_producto]";
 
 $result = $conexion->query($sql);
 
-if ($result->num_rows > 0) {     
+if ($result->num_rows > 0) {
  }
  while($row = $result->fetch_array(MYSQLI_ASSOC)){
  	$primera = $row['fecha_entrega'];
  	$segunda = $row['fecha'];
+ 	$dias_diferencia = compararFechas($primera,$segunda);
 
- echo "<tr><td>".$row['nc']."</td><td>".$row['fecha']."</td><td>".compararFechas($primera,$segunda)."</td><td></a><a type=button class='button' href='".$row['ruta']."'>Ver</a></td></tr>\n";
+ 	if($dias_diferencia >= 0){
+ 		$calificacion_entrega = 100;
+ 	}else if ($dias_diferencia < -10){
+ 		$calificacion_entrega = 0;
+ 	}else{
+ 		$calificacion_entrega = (10 + $dias_diferencia) * 10;
+ 	}
+
+ 	$calificacion_trabajo = $row['calificacion_trabajo'];
+ 	$calificacion_final = ($calificacion_trabajo * 0.7) + ($calificacion_entrega * 0.3);
+
+ echo "<tr><td>".$row['nc']."</td>";
+ echo "<td>".$row['fecha']."</td>";
+ echo "<td>".$calificacion_entrega."</td>";
+ if ($row['calificacion_trabajo'] == 0){
+ 	echo "<td>"."Sin Calificar"."</td>";
+ }else{
+ 	echo "<td>".$calificacion_trabajo."</td>";
+ }
+ echo "<td><strong>".$calificacion_final."</strong></td>";
+ echo "<td>"."<a type=button class='button' href='calificar_producto.php?id_carga=".$row['id_carga']."'>Calificar</a>"."<a type=button class='button' href='".$row['ruta']."'>Ver</a>"."</td></tr>\n";
  }
  mysqli_close($conexion); 
  ?>

@@ -7,6 +7,7 @@
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="//fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Arsenal:400,400i,700,700i" rel="stylesheet">
+
 </head>
 <body> 
 	<ul>
@@ -32,7 +33,35 @@
 										<th>Fecha</th>
 										<th></th>
 									</tr>
-								
+<?php
+function compararFechas($primera, $segunda)
+ {
+  $valoresPrimera = explode ("-", $primera);   
+  $valoresSegunda = explode ("-", $segunda); 
+
+  $diaPrimera    = $valoresPrimera[2];  
+  $mesPrimera  = $valoresPrimera[1];  
+  $anyoPrimera   = $valoresPrimera[0]; 
+
+  $diaSegunda   = $valoresSegunda[2];  
+  $mesSegunda = $valoresSegunda[1];  
+  $anyoSegunda  = $valoresSegunda[0];
+
+  $diasPrimeraJuliano = gregoriantojd($mesPrimera, $diaPrimera, $anyoPrimera);  
+  $diasSegundaJuliano = gregoriantojd($mesSegunda, $diaSegunda, $anyoSegunda);     
+
+  if(!checkdate($mesPrimera, $diaPrimera, $anyoPrimera)){
+    // "La fecha ".$primera." no es v&aacute;lida";
+    return 0;
+  }elseif(!checkdate($mesSegunda, $diaSegunda, $anyoSegunda)){
+    // "La fecha ".$segunda." no es v&aacute;lida";
+    return 0;
+  }else{
+    return  $diasPrimeraJuliano - $diasSegundaJuliano;
+  } 
+
+}
+?>								
 <?php
 session_start();
 ?>
@@ -55,11 +84,22 @@ $sql = "SELECT * FROM $tbl_name";
 
 $result = $conexion->query($sql);
 
+$segunda = date("Y")."-".date("m")."-".date("d");
 
 if ($result->num_rows > 0) {     
  }
  while($row = $result->fetch_array(MYSQLI_ASSOC)){
- echo "<tr><td>".$row['nombre']."</td><td>".$row['descripcion']."</td><td>".$row['fecha_entrega']."</td><td><a type=button class='button' href='subir.php?id_producto=".$row['id_producto']."'>Enviar</a><a type=button class='button' href='ver_producto.php?id_producto=".$row['id_producto']."'>Ver</a><a type=button class='button' href='modificar_producto.php?id_producto=".$row['id_producto']."'>Modificar</a></td></tr>\n";
+ $primera = $row['fecha_entrega'];
+
+ echo "<tr><td>".$row['nombre']."</td>";
+ echo "<td>".$row['descripcion']."</td>";
+ echo "<td>".$row['fecha_entrega']."</td>";
+ echo "<td>";
+ if (compararFechas($primera,$segunda) > -4){
+ 	echo "<a type=button class='button' href='subir.php?id_producto=".$row['id_producto']."'>Enviar</a>";
+ }
+ echo "<a type=button class='button' href='ver_producto.php?id_producto=".$row['id_producto']."'>Ver</a>";
+ echo "<a type=button class='button' href='modificar_producto.php?id_producto=".$row['id_producto']."'>Modificar</a></td></tr>\n";
    echo "<input type='hidden' name='id_producto' value='".$row['id_producto']."'>";
  }
  echo "</table>";

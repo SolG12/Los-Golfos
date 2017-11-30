@@ -27,17 +27,6 @@
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="//fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Arsenal:400,400i,700,700i" rel="stylesheet">
-
-<script src="js/jquery-1.12.4.js"></script>
-<script src="js/jquery-ui.js"></script>
-<link rel="stylesheet" href="css/jquery-ui.css">
-
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
-  } );
-  </script>
-
 </head>
 <body>
 	<ul>
@@ -54,15 +43,15 @@
 					<!-- login form -->
 					<div class="login-form loginw3-agile"> 
 						<div class="agile-row">
-							<h1>Dar de Alta Producto</h1> 
-							<div class="login-agileits-top"> 	
-								<form action="alta.php" method="post"> 
-									<p>Fecha de Entrega: </p>
-									<input type="text" name="fecha_entrega" id="datepicker" required>
-									<p>Nombre: </p>
-									<input type="text" name="nombre" required>
-									<p>Descripcion: </p>
-									<input type="text" name="descripcion" required>
+							<h1>Calificar Trabajo</h1> 
+							<div class="login-agileits-top">
+<?php
+	$id_carga = $_GET['id_carga'];
+?>
+								<form action="calificar.php" method="post"> 
+									<p>Calificacion: </p>
+									<input type="number" name="calificacion" min="1" max="100" value="100">
+									<input type="hidden" name="id_carga" value="<?php echo $id_carga ?>">
 									<label class="anim">
 										<!--
 										<input type="checkbox" class="checkbox">
@@ -70,7 +59,7 @@
 										-->  
 									</label>  
 									
-									<input type="submit" name="Submit" value="Dar de Alta"> 
+									<input type="submit" name="Submit" value="Calificar"> 
 								</form> 	
 							</div> 
 							<!--
