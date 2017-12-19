@@ -1,19 +1,34 @@
 <?php
-session_start();
+	session_start();
+
+	if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+	} else {
+   		echo "Necesitas acceder para registrar un administrador.<br>";
+   		echo "<br><a href='login.php'>Login</a>";
+		exit;
+	}
+
+	$now = time();
+
+	if($now > $_SESSION['expire']) {
+		session_destroy();
+		echo "Su sesion a terminado,
+		<a href='login.php'>Necesita Hacer Login</a>";
+		exit;
+	}
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Enviar Tarea</title>
+<title>Productos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="//fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Arsenal:400,400i,700,700i" rel="stylesheet">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<script src="js/bootstrap.min.js"></script>
 </head>
-<body>
+<body> 
 	<ul>
   		<li><a href="productos.php">Productos</a></li>
   		<li><a href="alta_producto.php">Dar de Alta Producto</a></li>
@@ -28,23 +43,36 @@ session_start();
 					<!-- login form -->
 					<div class="login-form loginw3-agile"> 
 						<div class="agile-row">
-							<h1>Enviar Tarea</h1> 
+							<h1>Ver Producto</h1> 
 							<div class="login-agileits-top">
-							<?php
-							$id_producto = $_GET['id_producto'];
-							 ?>
-							<form action="cargar.php" method="post" enctype="multipart/form-data"> 	
-								<input type="hidden" name="id_producto" value=<?php echo $id_producto?>>
-								<p>Numero de Control</p>
-								<input type="text" name="nc" maxlength="10" class="name" required>
-								<p>Texto</p>
-								<textarea class="form-control" rows="5" name="texto"></textarea>
-								<p>Archivo</p>
-								<input type="file" name="archivo" value="Seleccionar Archivo">
-								<br>
-								<br>
-								<input type="submit" name="Submit" value="Enviar">
-							</form> 
+
+<?php
+
+$host_db = "localhost";
+$user_db = "root";
+$pass_db = "";
+$db_name = "mudle";
+$tbl_name = "carga";
+
+$conexion = new mysqli($host_db, $user_db, $pass_db, $db_name);
+
+if ($conexion->connect_error) {
+ die("La conexion falló: " . $conexion->connect_error);
+}
+ 
+$sql = "SELECT texto FROM carga WHERE id_carga = $_GET[id_carga]";
+
+$result = $conexion->query($sql);
+
+if ($result->num_rows > 0) {
+	$row = $result->fetch_array(MYSQLI_ASSOC);
+ }
+
+ echo $row['texto'];
+
+ 
+ mysqli_close($conexion); 
+ ?>
 							</div> 
 							<!--
 							<div class="login-agileits-bottom wthree"> 

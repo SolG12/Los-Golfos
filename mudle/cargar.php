@@ -14,13 +14,16 @@ session_start();
 	$ruta = 'tareas/'.$nc.'_'.$_FILES['archivo']['name'];
 	$fecha_actual = date("Y-m-d");
 
-	if ($_FILES['archivo']['size'] < 500000){
-		if (move_uploaded_file($_FILES['archivo']['tmp_name'],$ruta)){
-			$conexion = new mysqli($host_db, $user_db, $pass_db, $db_name);
+	$conexion = new mysqli($host_db, $user_db, $pass_db, $db_name);
 			if ($conexion->connect_error) {
  				die("La conexion falló: " . $conexion->connect_error);
 			}
-			$query = "INSERT INTO $tbl_name values (null, '$nc', '$id_producto', '$fecha_actual', '$ruta', 0)";
+
+	if($_FILES['archivo']['name'] != "")
+	{
+		if ($_FILES['archivo']['size'] < 500000){
+		if (move_uploaded_file($_FILES['archivo']['tmp_name'],$ruta)){
+			$query = "INSERT INTO $tbl_name values (null, '$nc', '$id_producto', '$fecha_actual', '$ruta', 0, '$_POST[texto]')";
 			if ($conexion->query($query) === TRUE){
 				echo "El archivo se ha cargado correctamente!<br>";
 				echo "<a href='productos.php'>Regresar</a>";
@@ -31,8 +34,17 @@ session_start();
 		}else{
 			echo "Ocurrio un error al subir el archivo";
 		}
-	}else{
+		}else{
 		echo "El archivo es demasiado grande.";
+		}
+	}else{
+		$query = "INSERT INTO $tbl_name values (null, '$nc', '$id_producto', '$fecha_actual', null, 0, '$_POST[texto]')";
+			if ($conexion->query($query) === TRUE){
+				echo "El archivo se ha cargado correctamente!<br>";
+				echo "<a href='productos.php'>Regresar</a>";
+			}
 	}
+
+	
 
 ?>

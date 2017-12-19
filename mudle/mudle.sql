@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 26-11-2017 a las 22:15:50
+-- Tiempo de generación: 19-12-2017 a las 00:52:03
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 5.6.31
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `administrador` (
   `usuario` varchar(20) NOT NULL,
   `contrasena` text NOT NULL,
   PRIMARY KEY (`id_admin`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `administrador`
@@ -55,8 +55,9 @@ CREATE TABLE IF NOT EXISTS `carga` (
   `nc` varchar(10) NOT NULL,
   `id_producto` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `ruta` varchar(150) NOT NULL,
+  `ruta` varchar(150) DEFAULT NULL,
   `calificacion_trabajo` int(11) DEFAULT '0',
+  `texto` mediumtext,
   PRIMARY KEY (`id_carga`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

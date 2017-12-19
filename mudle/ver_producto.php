@@ -130,7 +130,7 @@ if ($result->num_rows > 0) {
  	echo "<td>".$calificacion_trabajo."</td>";
  }
  echo "<td><strong>".$calificacion_final."</strong></td>";
- echo "<td>"."<a type=button class='button' href='calificar_producto.php?id_carga=".$row['id_carga']."'>Calificar</a>"."<a type=button class='button' href='".$row['ruta']."'>Ver</a>"."</td></tr>\n";
+ echo "<td>"."<a type=button class='button' href='calificar_producto.php?id_carga=".$row['id_carga']."'>Calificar</a>"."<a type=button class='button' href='".$row['ruta']."'>Ver Archivo</a>"."<a type=button class='button' href='ver_texto.php?id_carga=".$row['id_carga']."'>Ver Texto</a>"."</td></tr>\n";
  }
  mysqli_close($conexion); 
  ?>
